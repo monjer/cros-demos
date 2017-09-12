@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>主界面</title>
+  <style type="text/css">
+  iframe {
+    border: 1px solid #ccc;
+    margin-top: 10px;
+  }
+  </style>
+</head>
+
+<body>
+  <h2>主页面</h2>
+  <p>使用JSONP</p>
+  <button id="btn">调用</button>
+  <script type="text/javascript">
+  function jsonpRequest(src, callback) {
+    if (!src) {
+      return;
+    }
+    var name = 'jsonpCb' + new Date().getTime()
+    window[name] = function(data) {
+      callback(data)
+      delete window[name];
+    }
+    var script = document.createElement('script');
+    if (src.indexOf('?') > 1) {
+      src += '&callback=' + name
+    } else {
+      src += '?callback=' + name
+    }
+    script.src = src;
+    script.onload = function() {
+      document.body.removeChild(script);
+      script = null;
+    }
+    document.body.appendChild(script)
+  }
+
+
+  var btn = document.getElementById('btn');
+  btn.addEventListener('click', function() {
+
+    jsonpRequest('http://dev.server.com/api/request', function(data) {
+      console.log(data)
+    })
+  });
+  </script>
+</body>
+
+</html>

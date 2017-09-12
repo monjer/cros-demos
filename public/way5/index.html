@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>主界面</title>
+  <style type="text/css">
+    iframe{
+      border:1px solid #ccc;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>主页面</h2>
+  <p>URL fragment</p>
+  <button id="btn">调用</button>
+  <script type="text/javascript">
+
+    function crosRequest(proxySrc , data){
+      var iframe = document.getElementById('transport');
+      iframe = iframe ? iframe : document.createElement('iframe');
+      iframe.id = 'transport';
+      iframe.src = proxySrc+"#"+JSON.stringify(data);
+      iframe.style.display = 'none'
+      document.body.appendChild(iframe);
+    }
+    var btn = document.getElementById('btn');
+    btn.addEventListener('click' , function(){
+      var data = {
+        requestURL:'http://dev.server.com/api/request',
+        source: location.protocol+"//"+location.hostname+""+location.pathname,
+        method:'get',
+        t:new Date().getTime(),
+        params:{
+          data:'this is the request param'
+        }
+      };
+      crosRequest("http://dev.server.com/way5/proxy.html" , data)
+    });
+
+    window.addEventListener('hashchange', function(){
+      var dataString = location.hash.substring(1);
+      try{
+        console.log(JSON.parse(dataString))
+      }catch(e){}
+    })
+  </script>
+</body>
+</html>

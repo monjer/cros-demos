@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>内容页</title>
+</head>
+
+<body>
+  <button id="btn">调用</button>
+  <script type="text/javascript">
+  function requestData(meta , callback) {
+    var responseData = { message: 'response data' }
+    var targetAPI = meta.requestURL;
+    var params = meta.params;
+    console.log('post request ' + targetAPI)
+
+    //
+    // async request
+    //
+    setTimeout(function(){
+      responseData.t = new Date().getTime()
+      callback(responseData)
+    },1000)
+  }
+  function handHashChange() {
+    var meta = location.hash;
+    meta = meta.substring(1) || "{}";
+    meta = JSON.parse(meta)
+    requestData(meta, function(responseData) {
+      parent.location.href = meta.source + '#'+ JSON.stringify(responseData);
+    })
+  }
+  window.onload = function() {
+    console.log('load')
+    handHashChange();
+  }
+  window.addEventListener('hashchange', function() {
+    console.log('asdasd')
+    handHashChange();
+  })
+  </script>
+</body>
+
+</html>

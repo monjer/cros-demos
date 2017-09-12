@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>主界面</title>
+  <style type="text/css">
+    iframe{
+      border:1px solid #ccc;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>主页面</h2>
+  <p>使用window.name</p>
+  <button id="btn">调用</button>
+  <script type="text/javascript">
+    function requestData(src , callback){
+      var iframe = document.createElement('iframe');
+      var first = true
+      iframe.onload = function(){
+        if(first){
+          iframe.src  = location.href;
+          first = false;
+        }else{
+          var data = iframe.contentWindow.name;
+          callback(data);
+          document.body.removeChild(iframe);
+          iframe = null ;
+        }
+      }
+      iframe.src=src;
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+    var btn = document.getElementById('btn');
+    btn.addEventListener('click' , function(){
+      requestData('http://dev.server.com/way2/content.html' , function(data){
+        // alert(data);
+        console.log(data)
+        console.log(JSON.parse(data));
+      })
+
+    });
+  </script>
+</body>
+</html>

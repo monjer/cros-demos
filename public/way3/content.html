@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>内容页</title>
+</head>
+
+<body>
+ <button id="btn">调用</button>
+  <script type="text/javascript">
+    var btn = document.getElementById('btn');
+    btn.addEventListener('click' , function(){
+      var data = {
+        message: 'data from content.html'
+      }
+      top.postMessage( data, 'http://www.server.com')
+    });
+    window.addEventListener('message' , function(event){
+      var origin = event.origin;
+      var data = event.data ;
+      var sourceWindow = event.source;
+      console.log(data)
+      sourceWindow.postMessage({
+        message:'message from content.html'
+      },origin);
+    });
+  </script>
+</body>
+
+</html>

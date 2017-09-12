@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>主界面</title>
+  <style type="text/css">
+    iframe{
+      border:1px solid #ccc;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>主页面</h2>
+  <p>window.postMessage</p>
+  <button id="btn">调用</button>
+  <div>
+    <iframe id="iframe" src="http://dev.server.com/way3/content.html"></iframe>
+  </div>
+  <script type="text/javascript">
+   
+    var btn = document.getElementById('btn');
+    btn.addEventListener('click' , function(){
+      var data = {
+        message: 'data from index'
+      }
+      var iframeWin = document.getElementById('iframe').contentWindow;
+      iframeWin.postMessage( data, 'http://dev.server.com')
+
+    });
+    window.addEventListener('message' , function(event){
+      var origin = event.origin;
+      var data = event.data ;
+      var sourceWindow = event.source;
+      console.log(data)
+    });
+  </script>
+</body>
+</html>
