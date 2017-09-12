@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>主界面</title>
+  <style type="text/css">
+    iframe {
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>简单请求</h3>
+  <button id="btn">调用</button>
+  <h3>非简单请求</h3>
+  <button id="btn2">调用</button>
+  <script>
+    function crosRequest(url, method, data, callback) {
+      function noop() {};
+      method = typeof method == 'function' ? 'get' : method;
+      data = typeof data == 'function' ? null : data;
+      callback = typeof callback == 'function' ? callback : noop;
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, url, true);
+      xhr.onreadystatechange = function(response) {
+        if (xhr.readyState === 4) {
+          if (xhr.status >= 200 && xhr.status < 400) {
+            callback(true, xhr.responseText);
+          } else {
+            callback(false, new Error('Response returned with non-OK status'));
+          }
+        }
+
+      }
+      xhr.onerror = function(e) {
+        console.log(e)
+      }
+      xhr.send(data);
+    }
+    var btn = document.getElementById('btn');
+    btn.addEventListener('click', function() {
+      crosRequest("http://dev.server.com/api/cors", function(err, res) {})
+    });
+    var btn2 = document.getElementById('btn2');
+    btn2.addEventListener('click', function() {
+      crosRequest("http://dev.server.com/api/cors", 'put', function(err) {
+
+      })
+    });
+  </script>
+</body>
+
+</html>
