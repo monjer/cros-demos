@@ -45,6 +45,7 @@
   btn.addEventListener('click', function() {
 
     jsonpRequest('http://dev.server.com/api/request', function(data) {
+      alert(data)
       console.log(data)
     })
   });

@@ -14,7 +14,6 @@
     var targetAPI = meta.requestURL;
     var params = meta.params;
     console.log('post request ' + targetAPI)
-
     //
     // async request
     //
@@ -25,7 +24,9 @@
   }
   function handHashChange() {
     var meta = location.hash;
+    console.log(meta)
     meta = meta.substring(1) || "{}";
+    meta = decodeURIComponent(meta)
     meta = JSON.parse(meta)
     requestData(meta, function(responseData) {
       parent.location.href = meta.source + '#'+ JSON.stringify(responseData);

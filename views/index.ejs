@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>几种跨越方案的简单示例</h1>
+  <ul>
+    <li>
+      <a href="/way1"><code>使用document.domain</code></a>
+    </li>
+    <li><a href="/way2"><code>使用window.name</code></a></li>
+    <li><a href="/way4">使用jsonp</a></li>
+    <li><a href="/way3">使用window.postMessage</a></li>
+    <li><a href="/way5">使用hash fragment</a></li>
+    <li><a href="/way6">使用CORS</a></li>
+  </ul>
+  <p>需要在本地host文件中配置两个虚拟域名，分别映射到<strong>127.0.0.1</strong></p>
+  <ul>
+    <li><span>www.server.com</span></li>
+    <li><span>sub.server.com</span></li>
+  </ul>
+</body>
+
 </html>

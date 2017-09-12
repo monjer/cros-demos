@@ -35,8 +35,8 @@
     }
     var btn = document.getElementById('btn');
     btn.addEventListener('click' , function(){
-      requestData('http://dev.server.com/way2/content.html' , function(data){
-        // alert(data);
+      requestData('http://sub.server.com/way2/content.html' , function(data){
+        alert(data);
         console.log(data)
         console.log(JSON.parse(data));
       })

@@ -21,6 +21,7 @@
       var data = event.data ;
       var sourceWindow = event.source;
       console.log(data)
+      alert(data)
       sourceWindow.postMessage({
         message:'message from content.html'
       },origin);

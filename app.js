@@ -17,6 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/' , function(req , res) {
+  res.render('index', {
+    title: '首页'
+  })
+})
 //
 // jsonp response
 //
@@ -78,7 +83,7 @@ app.put('/api/cors' , function(req , res){
   var allow = cors(req , res);
   if(allow){
     var data = {success: true , message:'response message'}
-    res.json(data)  
+    res.json(data)
   }else{
     res.end();
   }
