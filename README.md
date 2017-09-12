@@ -13,6 +13,12 @@ npm run start
 
 Need run in 80 port , so may be need root privileges.
 
+You need add some local domain mappings to _127.0.01_ in you hosts file , and open the browser in the main
+domain.
+
++ `www.server.com`
++ `sub.server.com`
+
 ### Introduction
 
 Some cross domain method includes:
